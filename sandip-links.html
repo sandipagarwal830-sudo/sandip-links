@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sandip AI — Links</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #050508;
+      --surface: #0f0f14;
+      --border: #1e1e2e;
+      --accent: #7b5ea7;
+      --accent2: #00d4ff;
+      --text: #e8e8f0;
+      --muted: #6b6b85;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(123,94,167,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,94,167,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Glow orbs */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(123,94,167,0.15) 0%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Avatar */
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 8px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .avatar-ring {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      animation: spin 6s linear infinite;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      border: 3px solid var(--bg);
+    }
+
+    @keyframes spin {
+      0% { box-shadow: 0 0 0 0 rgba(123,94,167,0.4); }
+      50% { box-shadow: 0 0 20px 4px rgba(0,212,255,0.3); }
+      100% { box-shadow: 0 0 0 0 rgba(123,94,167,0.4); }
+    }
+
+    /* Badge */
+    .badge {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: var(--accent2);
+      color: #000;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Name */
+    .name {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #fff 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeDown 0.7s ease both;
+      text-align: center;
+    }
+
+    .handle {
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 1px;
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .bio {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.7;
+      max-width: 320px;
+      animation: fadeDown 0.9s ease both;
+    }
+
+    /* Divider */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 4px 0;
+      animation: fadeDown 1s ease both;
+    }
+
+    /* Links */
+    .link-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(123,94,167,0.08), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.4s ease;
+    }
+
+    .link-btn:hover::before {
+      transform: translateX(100%);
+    }
+
+    .link-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123,94,167,0.2);
+    }
+
+    .link-btn:active {
+      transform: translateY(0);
+    }
+
+    .link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .x  { background: #000; border: 1px solid #333; }
+    .yt { background: #ff0000; }
+    .wa { background: #25d366; }
+
+    .link-text { flex: 1; }
+    .link-title { display: block; font-size: 13px; }
+    .link-sub   { display: block; font-size: 10px; color: var(--muted); margin-top: 2px; font-weight: 400; }
+
+    .arrow {
+      color: var(--muted);
+      font-size: 16px;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .link-btn:hover .arrow {
+      transform: translateX(4px);
+      color: var(--accent2);
+    }
+
+    /* Animations */
+    .link-btn:nth-child(1) { animation: fadeUp 0.5s 0.3s ease both; }
+    .link-btn:nth-child(2) { animation: fadeUp 0.5s 0.4s ease both; }
+    .link-btn:nth-child(3) { animation: fadeUp 0.5s 0.5s ease both; }
+    .link-btn:nth-child(4) { animation: fadeUp 0.5s 0.6s ease both; }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-align: center;
+      animation: fadeUp 0.5s 0.8s ease both;
+    }
+
+    .footer span {
+      color: var(--accent);
+    }
+
+    /* Typing cursor */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 14px;
+      background: var(--accent2);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      gap: 24px;
+      padding: 14px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      animation: fadeDown 1s ease both;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+    .stat-label {
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Avatar -->
+    <div class="avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar-inner">🤖</div>
+      </div>
+      <span class="badge">AI</span>
+    </div>
+
+    <!-- Name & Bio -->
+    <div class="name">Sandip AI<span class="cursor"></span></div>
+    <div class="handle">@growwithsandipAI</div>
+    <div class="bio">Simplifying AI for Everyone 🤖<br/>Content Creator | AI & Tech | Helping you grow with Artificial Intelligence</div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">AI</div>
+        <div class="stat-label">NICHE</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">📱</div>
+        <div class="stat-label">REELS</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">🚀</div>
+        <div class="stat-label">GROWING</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Links -->
+    <a class="link-btn" href="https://instagram.com/growwithsandipAI" target="_blank">
+      <div class="link-icon ig">📸</div>
+      <div class="link-text">
+        <span class="link-title">Instagram</span>
+        <span class="link-sub">@growwithsandipAI — Reels & AI Tips</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="link-btn" href="https://x.com/growwithsandipAI" target="_blank">
+      <div class="link-icon x">𝕏</div>
+      <div class="link-text">
+        <span class="link-title">X (Twitter)</span>
+        <span class="link-sub">AI Thoughts & Updates</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="link-btn" href="https://youtube.com/@growwithsandipAI" target="_blank">
+      <div class="link-icon yt">▶</div>
+      <div class="link-text">
+        <span class="link-title">YouTube</span>
+        <span class="link-sub">AI Tutorials & Deep Dives</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a class="link-btn" href="https://wa.me/" target="_blank">
+      <div class="link-icon wa">💬</div>
+      <div class="link-text">
+        <span class="link-title">WhatsApp / Contact</span>
+        <span class="link-sub">Business Enquiries</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <div class="divider"></div>
+
+    <div class="footer">
+      MADE WITH ❤️ BY <span>SANDIP AI</span> • 2026
+    </div>
+
+  </div>
+</body>
+</html>
